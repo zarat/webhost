@@ -62,5 +62,9 @@ server {
 }
 EOF
 
+# set permissions
+chmod 755 /var/www/html
+chown -R www-data:www-data /var/www/html
+
 # get certificate for root domain
 certbot --nginx -d zarat.at -d $domain --non-interactive --agree-tos -m admin@$domain
