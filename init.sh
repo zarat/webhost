@@ -8,7 +8,7 @@ sh get-docker.sh
 apt install nginx -y
 
 # install certbot, nginx-plugin
-apt install python3-nginx-plugin -y
+apt install python3-certbot-nginx -y
 
 # install vsftpd
 apt install vsftpd -y
