@@ -9,7 +9,7 @@ Your domain (www, *) should already point to your server.
 
 <pre>
 # clone repository
-apt update && apt install -y git && git clone https://github.com/zarat/webhost
+apt update && apt install -y git && git clone https://github.com/zarat/webhost && cd webhost && bash init.sh
 </pre>
 
 <pre>
