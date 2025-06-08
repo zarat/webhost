@@ -14,6 +14,7 @@ apt update && apt install -y git && git clone https://github.com/zarat/webhost
 
 <pre>
 # initialize repository
+  # set "www.your.domain" as main domain to get the correct certificate!
 cd webhost
 bash init.sh
 </pre>
