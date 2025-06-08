@@ -4,9 +4,7 @@ Your domain (www, *) should already point to your server.
 
 <pre>
 # example dns setup
-.      IN    A     1.2.3.4
-www    IN    CNAME your.domain
-*      IN    CNAME your.domain
+*      IN    CNAME    your.domain
 </pre>
 
 <pre>
