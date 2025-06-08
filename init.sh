@@ -45,17 +45,18 @@ allow_writeable_chroot=YES
 EOF
 
 default_host_conf="/etc/nginx/sites-available/default"
-cat > "$vsftpd_config_file" <<EOF
+cat > "$default_host_conf" <<EOF
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name $domain;
-        location / {
-                try_files $uri $uri/ =404;
-        }
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name $domain;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
 }
 EOF
-
-# Done
