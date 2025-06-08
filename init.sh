@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# frage nach default domain
+read -p "Webhost domain: " domain
+
 # update system
 apt update
 
@@ -39,6 +42,20 @@ rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
 rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
 ssl_enable=NO
 allow_writeable_chroot=YES
+EOF
+
+default_host_conf="/etc/nginx/sites-available/default"
+cat > "$vsftpd_config_file" <<EOF
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+        server_name $domain;
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
 EOF
 
 # Done
