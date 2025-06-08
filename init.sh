@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # frage nach default domain
-read -p "Webhost domain: " domain
+read -p "Webhost domain (mit www): " domain
 
 # update system
 apt update
