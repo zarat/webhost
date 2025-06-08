@@ -44,6 +44,7 @@ ssl_enable=NO
 allow_writeable_chroot=YES
 EOF
 
+# configure default vhost
 default_host_conf="/etc/nginx/sites-available/default"
 cat > "$default_host_conf" <<EOF
 server {
@@ -60,3 +61,6 @@ server {
     }
 }
 EOF
+
+# get certificate for root domain
+certbot --nginx -d zarat.at -d $domain --non-interactive --agree-tos -m admin@$domain
