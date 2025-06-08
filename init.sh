@@ -68,3 +68,6 @@ chown -R www-data:www-data /var/www/html
 
 # get certificate for root domain
 certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
+
+# make default website
+echo <h1>It works</h1><p>This is the default website</p> > /var/www/html/index.html
