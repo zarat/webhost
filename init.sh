@@ -84,4 +84,4 @@ case "$antwort" in
 esac
 
 # make default website
-echo <h1>It works</h1><p>This is the default website</p> > /var/www/html/index.html
+echo "<h1>It works</h1><p>This is the default website</p>" > /var/www/html/index.html
