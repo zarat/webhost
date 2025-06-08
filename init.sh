@@ -67,7 +67,21 @@ chmod 755 /var/www/html
 chown -R www-data:www-data /var/www/html
 
 # get certificate for root domain
-certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
+#certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
+
+read -p "Möchten Sie fortfahren? (j/n): " antwort
+
+case "$antwort" in
+    [jJ])
+        certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
+        ;;
+    [nN])
+        echo "Lege kein Root Domain Zertifikat an."
+        ;;
+    *)
+        echo "Ungültige Eingabe. Bitte j oder n eingeben."
+        ;;
+esac
 
 # make default website
 echo <h1>It works</h1><p>This is the default website</p> > /var/www/html/index.html
