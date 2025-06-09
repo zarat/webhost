@@ -6,6 +6,9 @@ read -p "Webhost domain (mit www): " domain
 # update system
 apt update
 
+# install openssl
+apt install -y openssl
+
 # install curl
 apt install -y curl
 
