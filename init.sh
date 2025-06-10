@@ -4,14 +4,14 @@
 read -p "Webhost domain (mit www): " domain
 
 # update system
-apt update > /dev/null
+apt update
 
 # install openssl
-apt install -y openssl curl > /dev/null
+apt install -y openssl curl 
 
 # install docker
-curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null
-sh get-docker.sh > /dev/null
+curl -fsSL https://get.docker.com -o get-docker.sh 
+sh get-docker.sh 
 
 # create default mac vlan
 echo '[info] set up default macvlan'
