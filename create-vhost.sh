@@ -1,6 +1,8 @@
 #!/bin/bash
 user=$1
 
+read -p 'Please specify the users domain: ' user_domain
+
 # add system user
 useradd -m $1
 
@@ -26,7 +28,7 @@ vhost_file="/etc/nginx/sites-available/$user.conf"
 cat > "$vhost_file" <<EOF
 server {
     listen 80;
-    server_name $user.zarat.at;
+    server_name $user.$user_domain;
 
     location / {
         proxy_pass http://$container_ip;
@@ -38,4 +40,4 @@ ln -s "$vhost_file" /etc/nginx/sites-enabled/
 
 nginx -s reload
 
-certbot --nginx -d $user.zarat.at --non-interactive --agree-tos -m manuel@zarat.at
+certbot --nginx -d $user.$user_domain --non-interactive --agree-tos -m $user@$user_domain
