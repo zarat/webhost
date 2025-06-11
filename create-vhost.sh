@@ -19,7 +19,8 @@ chmod 755 /home/$1/public_html
 chown -R $1:$1 /home/$1
 
 # start container
-docker run -dit --name $user --restart=always -v/home/$user/public_html:/usr/local/apache2/htdocs httpd
+# docker run -dit --name $user --restart=always -v/home/$user/public_html:/usr/local/apache2/htdocs httpd
+docker run -dit --name $user --restart=always -v/home/$user/public_html:/var/www/html custom_lamp
 
 container_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$user")
 
