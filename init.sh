@@ -7,7 +7,7 @@ read -p "Webhost domain (mit www): " domain
 apt update
 
 # install openssl
-apt install -y openssl curl 
+apt install -y openssl curl acl
 
 # install docker
 curl -fsSL https://get.docker.com -o get-docker.sh 
