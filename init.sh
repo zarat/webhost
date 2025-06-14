@@ -77,8 +77,7 @@ chown -R www-data:www-data /var/www/html
 
 # get certificate for root domain
 #certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
-
-read -p "Möchten Sie fortfahren? (j/n): " antwort
+read -p "Möchten Sie jetzt ein Zertifikat fuer die Root-Domain anfordern? (j/n): " antwort
 
 case "$antwort" in
     [jJ])
