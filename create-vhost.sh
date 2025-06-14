@@ -3,8 +3,12 @@ user=$1
 
 read -p 'Please specify the users domain: ' user_domain
 
+#!/bin/bash
+user=$1
+
 # add system user
 useradd -m $1
+usermod -aG www-data $1
 
 # set default password
 echo "$1:password" | chpasswd
@@ -15,8 +19,9 @@ systemctl reload vsftpd
 # create user dir
 mkdir -p /home/$1/public_html
 chmod 755 /home/$1
-chmod 755 /home/$1/public_html
+chmod 775 /home/$1/public_html
 chown -R $1:$1 /home/$1
+chown -R www-data:$1 /home/$1/public_html
 
 # start container
 read -p "Welches Image soll genutzt werden? (h [http] / p [php/mysql]): " antwort
