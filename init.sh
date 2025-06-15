@@ -125,6 +125,8 @@ esac
 
 # make default website
 # echo "<h1>It works</h1><p>This is the default website</p>" > /var/www/html/index.html
+rm /var/www/html/index*
 cp templates/index.php /var/www/html
+chown www-data:www-data /var/www/html/index.php
 
 echo "Dont forget to update '~/.msmtprc' with your smtp settings."
