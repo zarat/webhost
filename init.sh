@@ -24,7 +24,7 @@ read -p 'Please specify the interface: ' macvlan_device
 docker network create -d macvlan --subnet=$macvlan_subnet --gateway=$macvlan_gateway -o parent=$macvlan_device macvlan_net
 
 # install nginx
-apt install nginx -y
+apt install nginx php8.1-fpm -y
 
 # install certbot, nginx-plugin
 apt install python3-certbot-nginx -y
@@ -62,13 +62,25 @@ server {
     listen [::]:80 default_server;
 
     root /var/www/html;
-    index index.html index.htm;
+    index index.php index.html index.htm;
 
     server_name $domain;
 
     location / {
         try_files \$uri \$uri/ =404;
     }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock; # oder 127.0.0.1:9000
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+    
 }
 EOF
 
@@ -93,4 +105,5 @@ case "$antwort" in
 esac
 
 # make default website
-echo "<h1>It works</h1><p>This is the default website</p>" > /var/www/html/index.html
+# echo "<h1>It works</h1><p>This is the default website</p>" > /var/www/html/index.html
+cp templates/index.php /var/www/html
