@@ -7,7 +7,24 @@ read -p "Webhost domain (mit www): " domain
 apt update
 
 # install openssl
-apt install -y openssl curl
+apt install -y openssl curl msmtp
+
+cat > "~/.msmtprc" <<EOF
+defaults
+auth on
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile ~/.msmtp.log
+
+account gmail
+host smtp.gmail.com
+port 587
+from dein.email@gmail.com
+user dein.email@gmail.com
+password dein_passwort
+
+account default : gmail
+EOF
 
 # install docker
 curl -fsSL https://get.docker.com -o get-docker.sh 
