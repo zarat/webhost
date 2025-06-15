@@ -12,6 +12,7 @@ apt install -y openssl curl
 # install docker
 curl -fsSL https://get.docker.com -o get-docker.sh 
 sh get-docker.sh 
+rm get-docker.sh
 
 # create default mac vlan
 echo '[info] set up default macvlan'
