@@ -9,9 +9,9 @@ apt update
 # install openssl
 apt install -y openssl curl msmtp
 
-touch "~/.msmtprc"
+touch ~/.msmtprc
 
-cat > "~/.msmtprc" <<EOF
+cat > ~/.msmtprc <<EOF
 defaults
 auth on
 tls on
