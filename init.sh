@@ -93,7 +93,7 @@ server {
         include fastcgi_params;
         fastcgi_pass unix:/run/php/php8.1-fpm.sock; # oder 127.0.0.1:9000
         fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
     }
 
     location ~ /\.ht {
