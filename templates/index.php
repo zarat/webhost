@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-4xl font-extrabold text-gray-900">Starte deine eigene Website – kostenlos!</h2>
       <p class="mt-4 text-lg text-gray-600">
-        Registriere deinen kostenlosen Webspace mit FTP-Zugriff, PHP, unbegrenzt MySQL Datenbanken und eigenem LetsEncrypt Zertifikat.
+        Registriere deinen kostenlosen Webserver mit PHP, unbegrenzt MySQL Datenbanken, FTP, SSH und eigenem LetsEncrypt Zertifikat.
       </p>
     </div>
 
