@@ -13,6 +13,8 @@ rm -rf /etc/nginx/sites-available/$1.conf
 
 docker rm -f $1
 
+certbot revoke --cert-path /etc/letsencrypt/live/$1.zarat.at/fullchain.pem --non-interactive --agree-tos
+certbot delete --cert-name $1.zarat.at --non-interactive --quiet
 rm -rf /etc/letsencrypt/live/$1.zarat.at
 
 systemctl reload vsftpd
