@@ -137,4 +137,6 @@ rm /var/www/html/index*
 cp templates/index.php /var/www/html
 chown www-data:www-data /var/www/html/index.php
 
+nginx -s reload
+
 echo "Dont forget to update '~/.msmtprc' with your smtp settings."
