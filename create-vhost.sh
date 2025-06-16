@@ -58,15 +58,9 @@ containerimage="ubuntu2404php83"
 docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html $containerimage > /dev/null
 
 docker exec "$user" bash -c "echo 'root:$password' | chpasswd"
-docker exec "$user" bash -c "service ssh start"
-
-#echo "[info] Starting services in container"
-docker exec "$user" bash -c "service nginx start" > /dev/null
-docker exec "$user" bash -c "/etc/init.d/mariadb start" > /dev/null
-docker exec "$user" bash -c "service php8.3-fpm start" > /dev/null
 
 #echo "[info] Changing mysql root password"
-# change mysql root password
+service mariadb start
 docker exec "$user" bash -c "mysql -u root -e \"
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$password';
 FLUSH PRIVILEGES;
