@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN ln -snf /usr/share/zoneinfo/Europe/Vienna /etc/localtime && echo Europe/Vienna > /etc/timezone
 RUN dpkg --configure -a
-RUN apt update && apt install -y nginx php8.3-fpm mariadb-server php-mysqli
+RUN apt update && apt install -y nginx php8.3-fpm mariadb-server php-mysqli ssh
 RUN cat <<'EOF' > /etc/nginx/sites-available/default
 server {
         listen 80 default_server;
@@ -22,3 +22,4 @@ server {
         }
 }
 EOF
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
