@@ -141,4 +141,18 @@ nginx -s reload
 
 chmod +x /root/webhost/create-vhost.sh
 
+read -p "Möchten Sie die vHost Images jetzt erstellen (j/n): " make_images
+
+case "$make_images" in
+    [jJ])
+        cd images
+        bash make.sh
+        ;;
+    [nN])
+        ;;
+    *)
+        echo "Ungültige Eingabe. Bitte j oder n eingeben."
+        ;;
+esac
+
 echo "Dont forget to update '~/.msmtprc' with your smtp settings."
