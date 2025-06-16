@@ -107,6 +107,14 @@ EOF
 chmod 755 /var/www/html
 chown -R www-data:www-data /var/www/html
 
+SUDOERS_FILE="/etc/sudoers.d/www-data-script"
+SUDOERS_LINE="www-data ALL=(ALL) NOPASSWD: /root/webhost/create-vhost.sh"
+
+if ! grep -Fxq "$SUDOERS_LINE" "$SUDOERS_FILE" 2>/dev/null; then
+    echo "$SUDOERS_LINE" > "$SUDOERS_FILE"
+    chmod 440 "$SUDOERS_FILE"
+fi
+
 # get certificate for root domain
 #certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
 read -p "Möchten Sie jetzt ein Zertifikat fuer die Root-Domain anfordern? (j/n): " antwort
