@@ -37,7 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-4xl font-extrabold text-gray-900">Kostenloser Webserver (Beta Phase)</h2>
       <p class="mt-4 text-lg text-gray-600">
-        Features:
+        <p><b><span style="color:red">ACHTUNG</span></b>: Dein Webserver kann <b>in der Beta Phase</b> jederzeit gelöscht werden!</p>
+      </p>
+      <p class="mt-4 text-lg text-gray-600">
+        Features
         <ul>
                 <li>Subdomain: deinname.zarat.at</li>
                 <li>PHP 8</li>
