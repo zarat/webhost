@@ -135,6 +135,12 @@ MySQL:
     Host: localhost
     User: root
     Password: $password
+
+SSH:
+    Host: $user.zarat.at
+    User: $user
+    Password: $password
+    Connection-String: ssh -J $user@$user.zarat.at root@$container_ip
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO"
