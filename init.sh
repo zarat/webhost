@@ -139,4 +139,6 @@ chown www-data:www-data /var/www/html/index.php
 
 nginx -s reload
 
+chmod +x /root/webhost/create-vhost.sh
+
 echo "Dont forget to update '~/.msmtprc' with your smtp settings."
