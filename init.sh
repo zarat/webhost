@@ -113,7 +113,7 @@ read -p "Möchten Sie jetzt ein Zertifikat fuer die Root-Domain anfordern? (j/n)
 
 case "$antwort" in
     [jJ])
-        certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
+        certbot --nginx -d $domain -d www.$domain --non-interactive --agree-tos -m admin@$domain
         ;;
     [nN])
         echo "Lege kein Root Domain Zertifikat an."
