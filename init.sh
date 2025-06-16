@@ -156,3 +156,12 @@ case "$make_images" in
 esac
 
 echo "Dont forget to update '~/.msmtprc' with your smtp settings."
+
+cat >> /etc/ssh/sshd_config <<EOF
+Match User *
+    AllowTcpForwarding yes
+    PermitTunnel no
+    PermitTTY no
+    X11Forwarding no
+    ForceCommand echo 'This account is restricted to port forwarding only.'
+EOF
