@@ -7,7 +7,7 @@ read -p "Webhost domain (ohne www): " domain
 apt update
 
 # install openssl
-apt install -y openssl curl msmtp
+apt install -y openssl curl msmtp fail2ban
 
 touch ~/.msmtprc
 
