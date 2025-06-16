@@ -2,6 +2,8 @@
 
 user=$1
 
+pkill -u $1
+usermod -L $1
 deluser $1
 
 rm -rf /home/$1
