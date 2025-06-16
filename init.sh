@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # frage nach default domain
-read -p "Webhost domain (mit www): " domain
+read -p "Webhost domain (ohne www): " domain
 
 # update system
 apt update
@@ -77,13 +77,13 @@ EOF
 default_host_conf="/etc/nginx/sites-available/default"
 cat > "$default_host_conf" <<EOF
 server {
+
     listen 80 default_server;
-    listen [::]:80 default_server;
 
     root /var/www/html;
     index index.php index.html index.htm;
 
-    server_name $domain;
+    server_name $domain www.$domain;
 
     location / {
         try_files \$uri \$uri/ =404;
@@ -91,7 +91,7 @@ server {
 
     location ~ \.php$ {
         include fastcgi_params;
-        fastcgi_pass unix:/run/php/php8.1-fpm.sock; # oder 127.0.0.1:9000
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
     }
