@@ -55,11 +55,6 @@ containerimage="ubuntu2404php83"
 #echo "[info] Using image $containerimage"
 
 #echo "[info] Starting container"
-# start container
-# docker run -dit --name $user --restart=always -v /home/$user/public_html:/usr/local/apache2/htdocs httpd
-# docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html -e MYSQL_ROOT_PASSWORD=password fauria/lamp
-# docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html test-image
-# docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html --network macvlan_net --ip=192.168.0.2 test-image
 docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html $containerimage > /dev/null
 
 docker exec "$user" bash -c "echo 'root:$password' | chpasswd"
@@ -107,17 +102,7 @@ nginx -s reload
 #echo "[info] Requesting LetsEncrypt certificate for $1.zarat.at"
 certbot --nginx -d $user.zarat.at --non-interactive --agree-tos -m manuel@zarat.at 1> /dev/null 2>/dev/null
 
-#echo "Host: https://$user.zarat.at"
-#echo "FTP:"
-#echo "    Host: $user.zarat.at"
-#echo "    User: $user"
-#echo "    Password: $password"
-#echo "MySQL:"
-#echo "    Host: localhost"
-#echo "    User: root"
-#echo "    Password: $password"
 echo "Wir haben deine Zugangsdaten an $email gesendet."
-
 
 TO="$email"
 SUBJECT="Dein kostenloser Webspace"
