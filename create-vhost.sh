@@ -105,9 +105,9 @@ certbot --nginx -d $user.zarat.at --non-interactive --agree-tos -m manuel@zarat.
 echo "Wir haben deine Zugangsdaten an $email gesendet."
 
 TO="$email"
-SUBJECT="Dein kostenloser Webspace"
+SUBJECT="Dein Webserver ist bereit ($user.zarat.at)"
 BODY=$(cat <<EOF
-Hallo $user, dein kostenloser Webspace wurde eingerichtet.
+Hallo $user, dein kostenloser Webserver wurde eingerichtet.
 
 Host: https://$user.zarat.at
 
@@ -131,9 +131,9 @@ EOF
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO"
 
 TO="manuel.zarat@gmail.com"
-SUBJECT="Ein neuer Webspace ($user) wurde eingerichtet"
+SUBJECT="Ein neuer Webserver ($user) wurde eingerichtet"
 BODY=$(cat <<EOF
-Ein kostenloser Webspace wurde eingerichtet.
+Ein kostenloser Webserver wurde eingerichtet.
 
 Email: $email
 
