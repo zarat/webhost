@@ -24,6 +24,9 @@ fi
 useradd -m $1
 usermod -aG www-data $1
 
+# prevent ssh login
+usermod -s /usr/sbin/nologin $1
+
 #echo "[info] Generating random password"
 # generate random password for ftp and mysql root user
 password=$(openssl rand -base64 8)
