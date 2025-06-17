@@ -97,9 +97,9 @@ cat >> "/etc/ssh/sshd_config.d/$1.conf" <<EOF
 Match User $1
     AllowTcpForwarding no
     PermitTunnel no
-    PermitTTY yes
+    PermitTTY no
     X11Forwarding no
-    ForceCommand /usr/bin/ssh -i /home/$1/.ssh/id_rsa -o StrictHostKeyChecking=no root@$container_ip
+    ForceCommand echo "SSH Login ist für diesen Account gesperrt." # ForceCommand /usr/bin/ssh -i /home/$1/.ssh/id_rsa -o StrictHostKeyChecking=no root@$container_ip
 EOF
 systemctl restart ssh > /dev/null
 
