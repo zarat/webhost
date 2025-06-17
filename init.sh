@@ -167,3 +167,5 @@ Match User *
 EOF
 
 echo "Include /etc/ssh/sshd_config.d/*.conf" >> /etc/ssh/sshd_config
+
+mkdir /srv/customers
