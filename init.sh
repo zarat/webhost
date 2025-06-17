@@ -7,7 +7,16 @@ read -p "Webhost domain (ohne www): " domain
 apt update > /dev/null 2>&1
 
 # install openssl
-apt install -y openssl curl msmtp fail2ban jq > /dev/null 2>&1
+echo "Installiere OpenSSL"
+apt install -y openssl > /dev/null 2>&1
+echo "Installiere Curl"
+apt install -y curl > /dev/null 2>&1
+echo "Installiere MSmtp"
+apt install -y msmtp > /dev/null 2>&1
+echo "Installiere Fail2Ban"
+apt install -y fail2ban > /dev/null 2>&1
+echo "Installiere JQ"
+apt install -y jq > /dev/null 2>&1
 
 touch ~/.msmtprc
 
