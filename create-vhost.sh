@@ -15,6 +15,11 @@ if docker ps -a --format '{{.Names}}' | grep -w $1 > /dev/null; then
     quit=1 # exit
 fi
 
+if [ -f /etc/nginx/sites-available/$1.conf ]; then
+    # echo "Konfigurationsdatei existiert bereits."
+    quit=1 # exit
+fi
+
 if [ $quit -eq 1 ]; then
     echo "Ooops, bitte wähle einen anderen Namen."
     exit
@@ -60,7 +65,7 @@ docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/ww
 docker exec "$user" bash -c "echo 'root:$password' | chpasswd"
 
 #echo "[info] Changing mysql root password"
-service mariadb start
+service mariadb start > /dev/null 2>&1
 docker exec "$user" bash -c "mysql -u root -e \"
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$password';
 FLUSH PRIVILEGES;
@@ -122,7 +127,7 @@ SSH:
     Connection-String: ssh -J $user@$user.zarat.at root@$container_ip
 EOF
 )
-echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO"
+echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
 TO="manuel.zarat@gmail.com"
 SUBJECT="Ein neuer Webserver ($user) wurde eingerichtet"
@@ -151,4 +156,4 @@ SSH:
 EOF
 )
 
-echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO"
+echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
