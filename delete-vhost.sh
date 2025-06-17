@@ -2,20 +2,22 @@
 
 user=$1
 
-pkill -u $1
-usermod -L $1
-deluser $1
+pkill -u $1 > /dev/null
+usermod -L $1 > /dev/null
+deluser $1 > /dev/null
 
-rm -rf /home/$1
+rm -rf /home/$1 > /dev/null
 
-rm -rf /etc/nginx/sites-enabled/$1.conf
-rm -rf /etc/nginx/sites-available/$1.conf
+rm -rf /etc/nginx/sites-enabled/$1.conf > /dev/null
+rm -rf /etc/nginx/sites-available/$1.conf > /dev/null
 
-docker rm -f $1
+docker rm -f $1 > /dev/null
 
-certbot revoke --cert-path /etc/letsencrypt/live/$1.zarat.at/fullchain.pem --non-interactive --agree-tos
-certbot delete --cert-name $1.zarat.at --non-interactive --quiet
-rm -rf /etc/letsencrypt/live/$1.zarat.at
+certbot revoke --cert-path /etc/letsencrypt/live/$1.zarat.at/fullchain.pem --non-interactive --agree-tos > /dev/null 2>&1
+certbot delete --cert-name $1.zarat.at --non-interactive --quiet > /dev/null 2>&1
+rm -rf /etc/letsencrypt/live/$1.zarat.at > /dev/null
 
 systemctl reload vsftpd
 nginx -s reload
+
+echo "Konto $1 wurde entfernt."
