@@ -169,8 +169,6 @@ case "$make_images" in
         ;;
 esac
 
-echo "Dont forget to update '~/.msmtprc' with your smtp settings."
-
 cat >> /etc/ssh/sshd_config <<EOF
 Match User *
     AllowTcpForwarding yes
@@ -188,4 +186,5 @@ ssh-keygen -t rsa -b 4096
 read -p "IP deines PVE: " pveip
 ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@$pveip > /dev/null 2>&1
 
-echo "Fertig! Bitte passe das PVE Passwort in der Datei create-vps.sh an!"
+echo "Fertig! Passe das PVE Passwort in der Datei create-vps.sh an!"
+echo "Passe die SMTP Zugangsdaten in '~/.msmtprc' an!"
