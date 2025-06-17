@@ -182,7 +182,7 @@ echo "Include /etc/ssh/sshd_config.d/*.conf" >> /etc/ssh/sshd_config
 
 mkdir /srv/customers
 
-ssh-keygen -t rsa -b 4096
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N "" -q
 read -p "IP deines PVE: " pveip
 ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@$pveip > /dev/null 2>&1
 
