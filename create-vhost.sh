@@ -128,7 +128,7 @@ Hallo $user, dein kostenloser Webserver wurde eingerichtet.
 Host: https://$user.zarat.at
 
 FTP:
-    Host: $user.zarat.at
+    Host: zarat.at
     User: $user
     Password: $password
 
@@ -138,10 +138,9 @@ MySQL:
     Password: $password
 
 SSH:
-    Host: $user.zarat.at
+    Host: zarat.at
     User: $user
     Password: $password
-    Connection-String: ssh -J $user@$user.zarat.at root@$container_ip
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
