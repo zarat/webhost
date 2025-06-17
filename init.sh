@@ -187,3 +187,5 @@ mkdir /srv/customers
 ssh-keygen -t rsa -b 4096
 read -p "IP deines PVE: " pveip
 ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@$pveip > /dev/null 2>&1
+
+echo "Fertig! Bitte passe das PVE Passwort in der Datei create-vps.sh an!"
