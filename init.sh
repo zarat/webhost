@@ -125,6 +125,7 @@ EOF
 chmod 755 /var/www/html
 chown -R www-data:www-data /var/www/html
 
+touch "/etc/sudoers.d/www-data-script"
 SUDOERS_FILE="/etc/sudoers.d/www-data-script"
 SUDOERS_LINE="www-data ALL=(ALL) NOPASSWD: /root/webhost/create-vhost.sh"
 
