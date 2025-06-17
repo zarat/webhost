@@ -23,4 +23,6 @@ nginx -s reload
 rm -rf /etc/ssh/sshd_config.d/$1.conf
 systemctl restart ssh
 
+rm -rf /srv/customers/$1.img
+
 echo "Konto $1 wurde entfernt."
