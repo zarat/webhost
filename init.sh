@@ -169,3 +169,5 @@ EOF
 echo "Include /etc/ssh/sshd_config.d/*.conf" >> /etc/ssh/sshd_config
 
 mkdir /srv/customers
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no root@192.168.0.120 > /dev/null 2>&1
