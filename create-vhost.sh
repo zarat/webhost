@@ -128,7 +128,7 @@ Hallo $user, dein kostenloser Webserver wurde eingerichtet.
 Host: https://$user.zarat.at
 
 FTP:
-    Host: zarat.at
+    Host: $user.zarat.at
     User: $user
     Password: $password
 
@@ -138,7 +138,7 @@ MySQL:
     Password: $password
 
 SSH:
-    Host: zarat.at
+    Host: $user.zarat.at
     User: $user
     Password: $password
 EOF
@@ -168,7 +168,6 @@ SSH:
     Host: $user.zarat.at
     User: $user
     Password: $password
-    Connection-String: ssh -J $user@$user.zarat.at root@$container_ip
 EOF
 )
 
