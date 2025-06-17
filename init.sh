@@ -39,6 +39,7 @@ account default : gmail
 EOF
 
 # install docker
+echo "Installiere Docker"
 curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
 sh get-docker.sh > /dev/null 2>&1
 rm get-docker.sh
