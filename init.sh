@@ -166,5 +166,4 @@ Match User *
     ForceCommand echo 'This account is restricted to port forwarding only.'
 EOF
 
-mkdir /etc/ssh/sshd_config.d
 echo "Include /etc/ssh/sshd_config.d/*.conf" >> /etc/ssh/sshd_config
