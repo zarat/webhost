@@ -33,6 +33,9 @@ usermod -aG www-data $1
 # nope, this also prevents ftp login
 # usermod -s /usr/sbin/nologin $1
 
+# generate key pair
+sudo -u $1 ssh-keygen -t rsa -b 4096 -f /home/$1/.ssh/id_rsa -N "" -q
+
 #echo "[info] Generating random password"
 # generate random password for ftp and mysql root user
 password=$(openssl rand -base64 8)
@@ -74,6 +77,20 @@ FLUSH PRIVILEGES;
 docker exec "$user" bash -c "echo '<h1>Dieser Webspace ist reserviert</h1><p>In K&uuml;rze entsteht hier eine neue Website.</p>' > /var/www/html/index.html" 
 
 container_ip=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$user")
+
+# copy key pair to container
+cat /home/$1/.ssh/id_rsa.pub | docker exec -i $1 sh -c 'mkdir -p /root/.ssh && cat >> /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys && chmod 700 /root/.ssh'
+
+# add to sshd_config
+cat >> "/etc/ssh/sshd_config.d/$1.conf" <<EOF
+Match User $1
+    AllowTcpForwarding no
+    PermitTunnel no
+    PermitTTY yes
+    X11Forwarding no
+    ForceCommand /usr/bin/ssh -i /home/$1/.ssh/id_rsa -o StrictHostKeyChecking=no root@$container_ip
+EOF
+systemctl restart ssh > /dev/null
 
 #echo "[info] Generating vhost configuration"
 vhost_file="/etc/nginx/sites-available/$user.conf"
