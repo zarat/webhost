@@ -98,7 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     const loadingText = document.getElementById("loading-text");
     const responseBox = document.getElementById("response");
 
-    // Statusmeldungen
     const messages = [
       "Webserver wird vorbereitet …",
       "Container wird gestartet …",
@@ -106,6 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       "Fast fertig …"
     ];
     let msgIndex = 0;
+    let finished = false;
 
     // Formular ausblenden, Ladeanzeige einblenden
     formBox.classList.add("hidden");
@@ -115,6 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Statusmeldungen einmal durchlaufen
     const updateMessage = () => {
+      if (finished) return;
       if (msgIndex < messages.length) {
         loadingText.textContent = messages[msgIndex];
         msgIndex++;
@@ -131,15 +132,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       const text = await res.text();
 
-      // Antwort direkt im Ladebereich anzeigen (ersetzt Statusmeldung)
+      finished = true;
       loadingText.textContent = text;
 
     } catch (error) {
+      finished = true;
       loadingText.textContent = "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.";
     }
   });
 </script>
-
 
 </body>
 </html>
