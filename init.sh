@@ -34,13 +34,13 @@ sh get-docker.sh
 rm get-docker.sh
 
 # create default mac vlan
-echo '[info] set up default macvlan'
-read -p 'Please specify subnet (CIDR): ' macvlan_subnet
-read -p 'Please specify the gateway (IP): ' macvlan_gateway
-available_interfaces=$(ls /sys/class/net | grep -v lo | tr '\n' ' ')
-echo "Available interfaces: $available_interfaces"
-read -p 'Please specify the interface: ' macvlan_device
-docker network create -d macvlan --subnet=$macvlan_subnet --gateway=$macvlan_gateway -o parent=$macvlan_device macvlan_net
+#echo '[info] set up default macvlan'
+#read -p 'Please specify subnet (CIDR): ' macvlan_subnet
+#read -p 'Please specify the gateway (IP): ' macvlan_gateway
+#available_interfaces=$(ls /sys/class/net | grep -v lo | tr '\n' ' ')
+#echo "Available interfaces: $available_interfaces"
+#read -p 'Please specify the interface: ' macvlan_device
+#docker network create -d macvlan --subnet=$macvlan_subnet --gateway=$macvlan_gateway -o parent=$macvlan_device macvlan_net
 
 # install nginx
 apt install nginx php8.1-fpm -y
