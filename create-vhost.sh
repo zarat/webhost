@@ -48,14 +48,25 @@ echo "$1:$password" | chpasswd
 # reload vsftpd
 systemctl reload vsftpd
 
+
+
 #echo "[info] Creating folder structure and setting permissions for vhost /home/$1"
 # create user dir
+#mkdir -p /home/$1/public_html
+#chmod 755 /home/$1
+#chmod 775 /home/$1/public_html
+#chown -R $1:$1 /home/$1
+#chown -R www-data:$1 /home/$1/public_html
+
+dd if=/dev/zero of=/srv/customers/$1.img bs=1M count=1024 > /dev/null 2>&1
+mkfs.ext4 /srv/customers/$1.img > /dev/null 2>&1
 mkdir -p /home/$1/public_html
+#mount -o loop /srv/customers/$1.img /home/$1/public_html
 chmod 755 /home/$1
 chmod 775 /home/$1/public_html
 chown -R $1:$1 /home/$1
-
 chown -R www-data:$1 /home/$1/public_html
+#mount -o loop /srv/customers/$1.img /home/$1/public_html
 
 # choose image
 # read -p 'Choose an image (ubuntu1804php72, ubuntu2204php81, ubuntu2404php83): ' containerimage
