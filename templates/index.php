@@ -69,6 +69,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
       </form>
 
+<div id="loading" class="mt-4 p-4 bg-yellow-100 rounded text-sm text-yellow-800 hidden">
+  <span id="loading-text">Webserver wird vorbereitet …</span>
+</div>
+
       <div id="response" class="mt-4 p-4 bg-gray-100 rounded text-sm whitespace-pre hidden"></div>
 
       <!-- <p class="text-center text-gray-500 text-xs mt-4">
@@ -83,13 +87,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
   </footer>
 
-  <script>
-    document.getElementById("registerForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-      const box = document.getElementById("registerForm");
+<script>
+  document.getElementById("registerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
 
+    const formBox = document.getElementById("registerForm");
+    const loadingBox = document.getElementById("loading");
+    const loadingText = document.getElementById("loading-text");
+    const responseBox = document.getElementById("response");
+
+    // Statusmeldungen
+    const messages = [
+      "Webserver wird vorbereitet …",
+      "Container wird gestartet …",
+      "Zugangsdaten werden erstellt …",
+      "Fast fertig …"
+    ];
+    let msgIndex = 0;
+
+    // Formular ausblenden, Ladeanzeige einblenden
+    formBox.classList.add("hidden");
+    loadingBox.classList.remove("hidden");
+    responseBox.classList.add("hidden");
+    responseBox.textContent = "";
+
+    // Statusmeldungen einmal durchlaufen
+    const updateMessage = () => {
+      if (msgIndex < messages.length) {
+        loadingText.textContent = messages[msgIndex];
+        msgIndex++;
+        setTimeout(updateMessage, 4000);
+      }
+    };
+    updateMessage();
+
+    try {
       const res = await fetch("", {
         method: "POST",
         body: formData,
@@ -97,9 +131,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       const text = await res.text();
 
-      box.textContent += text;
-      box.classList.remove("hidden");
-    });
-  </script>
+      // Antwort direkt im Ladebereich anzeigen (ersetzt Statusmeldung)
+      loadingText.textContent = text;
+
+    } catch (error) {
+      loadingText.textContent = "Ein Fehler ist aufgetreten. Bitte versuche es später erneut.";
+    }
+  });
+</script>
+
+
 </body>
 </html>
