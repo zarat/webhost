@@ -70,6 +70,10 @@ chown -R www-data:$1 /home/$1/public_html
 
 # choose image
 image_list=$(docker image ls --format '{{.Repository}}' | sed -E 's/ubuntu([0-9]{2}).*/ubuntu\1/' | sort -u)
+if [ -z "$image_list" ]; then
+  echo "Keine passenden Images gefunden. (bash images/make.sh)"
+  exit 1
+fi
 echo $image_list
 read -p 'Choose an image: ' containerimage
 # containerimage="ubuntu2404php83"
