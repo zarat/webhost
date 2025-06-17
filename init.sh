@@ -12,6 +12,7 @@ apt install -y openssl > /dev/null 2>&1
 echo "Installiere Curl"
 apt install -y curl > /dev/null 2>&1
 echo "Installiere MSmtp"
+export DEBIAN_FRONTEND=noninteractive
 apt install -y msmtp > /dev/null 2>&1
 echo "Installiere Fail2Ban"
 apt install -y fail2ban > /dev/null 2>&1
@@ -38,8 +39,8 @@ account default : gmail
 EOF
 
 # install docker
-curl -fsSL https://get.docker.com -o get-docker.sh 
-sh get-docker.sh 
+curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
+sh get-docker.sh > /dev/null 2>&1
 rm get-docker.sh
 
 # create default mac vlan
@@ -52,13 +53,20 @@ rm get-docker.sh
 #docker network create -d macvlan --subnet=$macvlan_subnet --gateway=$macvlan_gateway -o parent=$macvlan_device macvlan_net
 
 # install nginx
-apt install nginx php8.1-fpm -y
+echo "Installiere NginX"
+apt install nginx php8.1-fpm -y > /dev/null 2>&1
+
+# install php
+echo "Installiere PHP"
+apt install php8.1-fpm -y > /dev/null 2>&1
 
 # install certbot, nginx-plugin
-apt install python3-certbot-nginx -y
+echo "Installiere Certbot NginX Plugin"
+apt install python3-certbot-nginx -y > /dev/null 2>&1
 
 # install vsftpd
-apt install vsftpd -y
+echo "Installiere Vsftpd
+apt install vsftpd -y > /dev/null 2>&1
 
 # configure vsftpd
 vsftpd_config_file="/etc/vsftpd.conf"
