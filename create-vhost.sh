@@ -69,7 +69,7 @@ chown -R www-data:$1 /home/$1/public_html
 #mount -o loop /srv/customers/$1.img /home/$1/public_html
 
 # choose image
-image_list=$(docker image ls --format '{{.Repository}}' | sed -E 's/ubuntu([0-9]{2}).*/ubuntu\1/' | sort -u)
+image_list=$(docker image ls --format '{{.Repository}}' | sort -u)
 if [ -z "$image_list" ]; then
   echo "Keine passenden Images gefunden. (bash images/make.sh)"
   exit 1
