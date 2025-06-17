@@ -73,6 +73,11 @@ chown -R www-data:$1 /home/$1/public_html
 containerimage="ubuntu2404php83"
 #echo "[info] Using image $containerimage"
 
+if ! docker image ls -q "$containerimage" | grep -q .; then
+    echo "Container-Image '$containerimage' existiert nicht."
+    exit 1
+fi
+
 #echo "[info] Starting container"
 docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html $containerimage > /dev/null
 
