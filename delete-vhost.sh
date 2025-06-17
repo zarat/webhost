@@ -20,4 +20,7 @@ rm -rf /etc/letsencrypt/live/$1.zarat.at > /dev/null
 systemctl reload vsftpd
 nginx -s reload
 
+rm -rf /etc/ssh/sshd_config.d/$1.conf
+systemctl restart ssh
+
 echo "Konto $1 wurde entfernt."
