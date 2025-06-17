@@ -4,10 +4,10 @@
 read -p "Webhost domain (ohne www): " domain
 
 # update system
-apt update
+apt update > /dev/null 2>&1
 
 # install openssl
-apt install -y openssl curl msmtp fail2ban jq
+apt install -y openssl curl msmtp fail2ban jq > /dev/null 2>&1
 
 touch ~/.msmtprc
 
