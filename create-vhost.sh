@@ -69,8 +69,9 @@ chown -R www-data:$1 /home/$1/public_html
 #mount -o loop /srv/customers/$1.img /home/$1/public_html
 
 # choose image
-image_list=$(docker image ls --format '{{.Repository}}' | sed -E 's/ubuntu([0-9]{2}).*/ubuntu\1/' | sort -u | paste -sd,)
-read -p 'Choose an image ($image_list): ' containerimage
+image_list=$(docker image ls --format '{{.Repository}}' | sed -E 's/ubuntu([0-9]{2}).*/ubuntu\1/' | sort -u)
+echo $image_list
+read -p 'Choose an image: ' containerimage
 # containerimage="ubuntu2404php83"
 #echo "[info] Using image $containerimage"
 
