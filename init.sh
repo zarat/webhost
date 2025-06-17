@@ -6,18 +6,13 @@ read -p "Webhost domain (ohne www): " domain
 # update system
 apt update > /dev/null 2>&1
 
-# install openssl
-echo "Installiere OpenSSL"
-apt install -y openssl > /dev/null 2>&1
-echo "Installiere Curl"
-apt install -y curl > /dev/null 2>&1
-echo "Installiere MSmtp"
 export DEBIAN_FRONTEND=noninteractive
-apt install -y msmtp > /dev/null 2>&1
-echo "Installiere Fail2Ban"
+
+# install packages
+echo "Installiere erforderliche Packages"
+apt install -y openssl curl msmtp jq > /dev/null 2>&1
+echo "Installiere Intrusion Detection (Fail2Ban)"
 apt install -y fail2ban > /dev/null 2>&1
-echo "Installiere JQ"
-apt install -y jq > /dev/null 2>&1
 
 touch ~/.msmtprc
 
