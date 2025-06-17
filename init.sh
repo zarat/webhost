@@ -66,7 +66,7 @@ echo "Installiere Certbot NginX Plugin"
 apt install python3-certbot-nginx -y > /dev/null 2>&1
 
 # install vsftpd
-echo "Installiere Vsftpd
+echo "Installiere Vsftpd"
 apt install vsftpd -y > /dev/null 2>&1
 
 # configure vsftpd
