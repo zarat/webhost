@@ -116,9 +116,9 @@ EOF
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
 TO="manuel.zarat@gmail.com"
-SUBJECT="Ein neuer VPS ($user) wurde eingerichtet"
+SUBJECT="Ein VPS ($user) wurde eingerichtet"
 BODY=$(cat <<EOF
-Ein kostenloser Webserver wurde eingerichtet.
+Ein VPS wurde eingerichtet.
 
 Email: $email
 
