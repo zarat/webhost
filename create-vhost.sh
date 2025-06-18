@@ -152,7 +152,7 @@ EOF
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
 TO="manuel.zarat@gmail.com"
-SUBJECT="Ein neuer Webspace ($user) wurde eingerichtet"
+SUBJECT="Ein Webspace ($user) wurde eingerichtet"
 BODY=$(cat <<EOF
 Ein Webspace wurde eingerichtet.
 
