@@ -157,6 +157,7 @@ chown www-data:www-data /var/www/html/index.php
 nginx -s reload
 
 chmod +x /root/webhost/create-vhost.sh
+chmod +x /root/webhost/create-vps.sh
 
 read -p "Möchten Sie die vHost Images jetzt erstellen (j/n): " make_images
 
