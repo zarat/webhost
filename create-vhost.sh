@@ -69,20 +69,9 @@ chown -R www-data:$1 /home/$1/public_html
 #mount -o loop /srv/customers/$1.img /home/$1/public_html
 
 # choose image
-image_list=$(docker image ls --format '{{.Repository}}' | sort -u)
-if [ -z "$image_list" ]; then
-  echo "Keine passenden Images gefunden. (bash images/make.sh)"
-  exit 1
-fi
-echo $image_list
-read -p 'Choose an image: ' containerimage
-# containerimage="ubuntu2404php83"
+# read -p 'Choose an image (ubuntu1804php72, ubuntu2204php81, ubuntu2404php83): ' containerimage
+containerimage="ubuntu2404php83"
 #echo "[info] Using image $containerimage"
-
-if ! docker image ls -q "$containerimage" | grep -q .; then
-    echo "Container-Image '$containerimage' existiert nicht."
-    exit 1
-fi
 
 #echo "[info] Starting container"
 docker run -dit --name $user --restart=always -v /home/$user/public_html:/var/www/html $containerimage > /dev/null
@@ -143,9 +132,9 @@ certbot --nginx -d $user.zarat.at --non-interactive --agree-tos -m manuel@zarat.
 echo "Wir haben deine Zugangsdaten an $email gesendet."
 
 TO="$email"
-SUBJECT="Dein Webserver ist bereit ($user.zarat.at)"
+SUBJECT="Dein Webspace ist bereit ($user.zarat.at)"
 BODY=$(cat <<EOF
-Hallo $user, dein kostenloser Webserver wurde eingerichtet.
+Hallo $user, dein Webspace wurde eingerichtet.
 
 Host: https://$user.zarat.at
 
@@ -163,9 +152,9 @@ EOF
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
 TO="manuel.zarat@gmail.com"
-SUBJECT="Ein neuer Webserver ($user) wurde eingerichtet"
+SUBJECT="Ein neuer Webspace ($user) wurde eingerichtet"
 BODY=$(cat <<EOF
-Ein kostenloser Webserver wurde eingerichtet.
+Ein Webspace wurde eingerichtet.
 
 Email: $email
 
