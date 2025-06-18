@@ -122,12 +122,15 @@ chown -R www-data:www-data /var/www/html
 
 touch "/etc/sudoers.d/www-data-script"
 SUDOERS_FILE="/etc/sudoers.d/www-data-script"
-SUDOERS_LINE="www-data ALL=(ALL) NOPASSWD: /root/webhost/create-vhost.sh"
-
-if ! grep -Fxq "$SUDOERS_LINE" "$SUDOERS_FILE" 2>/dev/null; then
-    echo "$SUDOERS_LINE" > "$SUDOERS_FILE"
-    chmod 440 "$SUDOERS_FILE"
+FIRST_SUDOERS_LINE="www-data ALL=(ALL) NOPASSWD: /root/webhost/create-vhost.sh"
+if ! grep -Fxq "$FIRST_SUDOERS_LINE" "$SUDOERS_FILE" 2>/dev/null; then
+    echo "$FIRST_SUDOERS_LINE" > "$SUDOERS_FILE"
 fi
+SECOND_SUDOERS_LINE="www-data ALL=(ALL) NOPASSWD: /root/webhost/create-vps.sh"
+if ! grep -Fxq "$SECOND_SUDOERS_LINE" "$SUDOERS_FILE" 2>/dev/null; then
+    echo "$SECOND_SUDOERS_LINE" >> "$SUDOERS_FILE"
+fi
+chmod 440 "$SUDOERS_FILE"
 
 # get certificate for root domain
 #certbot --nginx -d $domain --non-interactive --agree-tos -m admin@$domain
