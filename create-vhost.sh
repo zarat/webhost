@@ -158,11 +158,6 @@ MySQL:
     Host: localhost
     User: root
     Password: $password
-
-SSH:
-    Host: $user.zarat.at
-    User: $user
-    Password: $password
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
@@ -184,11 +179,6 @@ FTP:
 MySQL:
     Host: localhost
     User: root
-    Password: $password
-
-SSH:
-    Host: $user.zarat.at
-    User: $user
     Password: $password
 EOF
 )
