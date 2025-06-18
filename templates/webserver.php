@@ -101,7 +101,7 @@ else {
     const responseBox = document.getElementById("response");
 
     const messages = [
-      "Webspace wird vorbereitet …",
+      "Webserver wird vorbereitet …",
       "Container wird gestartet …",
       "Zugangsdaten werden erstellt …",
       "Fast fertig …"
