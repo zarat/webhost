@@ -1,5 +1,4 @@
 <?php
-include "header.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header("Content-Type: text/plain");
@@ -18,6 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo $output ?: "Keine Ausgabe vom Script.";
     exit;
 }
+else {
+    include "header.php";
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Webspace Registrierung</title>
+  <title>Webspace Registrierung</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
