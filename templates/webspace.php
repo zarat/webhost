@@ -39,7 +39,14 @@ else {
 
   <main class="mt-10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-4xl font-extrabold text-gray-900">Paket Webspace (Beta Phase)</h2>
+      <h2 class="text-4xl font-extrabold text-gray-900">Webspace</h2>
+
+        <p class="mt-4 text-lg text-gray-600">
+        Dein eigener Webspace mit 1 GB Speicher, PHP, unbegrenzt MySQL Datenbanken und unbegrenzt Traffic (Fair Use Prinzip).
+        Du bekommst Zugriff via FTP um deine Dateien hochzuladen.
+        Deine Website liegt hinter einem Reverse-Proxy und wird mit einem kostenlosen SSL Zertifikat versehen.
+        </p>
+
       <p class="mt-4 text-lg text-gray-600">
         <p><b><span style="color:red">ACHTUNG</span></b>: Dein Webspace kann <b>in der Beta Phase</b> jederzeit gelöscht werden!</p>
       </p>
@@ -47,8 +54,10 @@ else {
         Features
         <ul>
                 <li>Subdomain: deinname.zarat.at</li>
+                <li>1 GB Speicher</li>
                 <li>PHP 8</li>
                 <li>unbegrenzt MySQL Datenbanken</li>
+                <li>unbegrenzt Traffic (Fair Use)</li>
                 <li>FTP Zugriff</li>
                 <li>LetsEncrypt Zertifikat</li>
         </ul>
