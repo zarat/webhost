@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [[ "$1" =~ ^[a-zA-Z0-9]+$ ]]; then
+    echo "" 
+else
+    echo "Bitte nur folgende Zeichen verwenden: a-z A-Z 0-9"
+    exit 1
+fi
+
 # ===== KONFIGURATION =====
 PVE_HOST="192.168.0.100"         # IP oder Hostname deines Proxmox-Servers
 PVE_USER="root@pam"             # API-Benutzer (z. B. root@pam oder apiuser@pve)
