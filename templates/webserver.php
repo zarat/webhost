@@ -39,7 +39,15 @@ else {
 
   <main class="mt-10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-4xl font-extrabold text-gray-900">Paket Webserver (Beta Phase)</h2>
+      <h2 class="text-4xl font-extrabold text-gray-900">Webserver</h2>
+
+        <p class="mt-4 text-lg text-gray-600">
+        Dein eigener Webserver mit 8 GB Speicher, unbegrenzt Traffic (Fair Use Prinzip).
+        Du bekommst Zugriff via SSH um Programme zu installieren und deine Dateien hochzuladen.
+        Deine Website liegt hinter einem Reverse-Proxy und wird mit einem kostenlosen SSL Zertifikat versehen.
+        Jede Stunde wird ein Backup erstellt und 12 Stunden aufbewahrt. Jeden Tag wird ein Backup erstellt und 3 Tage aufbewahrt. 
+        </p>
+
       <p class="mt-4 text-lg text-gray-600">
         <p><b><span style="color:red">ACHTUNG</span></b>: Dein Webserver kann <b>in der Beta Phase</b> jederzeit gelöscht werden!</p>
       </p>
@@ -47,11 +55,14 @@ else {
         Features
         <ul>
                 <li>Subdomain: deinname.zarat.at</li>
+                <li>8 GB Speicher</li>
+                <li>512 MB RAM</li>
                 <li>SSH Root Zugriff</li>
                 <li>Installation beliebiger Programme</li>
                 <li>LetsEncrypt Zertifikat</li>
                 <li>St&uuml;ndliche Backups (12 Stunden Aufbewahrung)</li>
                 <li>T&auml;gliche Backups (3 Tage Aufbewahrung)</li>
+                <li>Eigene Firewall Regeln</li>
         </ul>
       </p>
     </div>
