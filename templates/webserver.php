@@ -50,6 +50,8 @@ else {
                 <li>SSH Root Zugriff</li>
                 <li>Installation beliebiger Programme</li>
                 <li>LetsEncrypt Zertifikat</li>
+                <li>St&uuml;ndliche Backups (12 Stunden Aufbewahrung)</li>
+                <li>T&auml;gliche Backups (3 Tage Aufbewahrung)</li>
         </ul>
       </p>
     </div>
