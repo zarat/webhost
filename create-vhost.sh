@@ -5,6 +5,13 @@ email=$2
 
 quit=0
 
+if [[ "$1" =~ ^[a-zA-Z0-9]+$ ]]; then
+    echo "" 
+else
+    echo "Bitte nur folgende Zeichen verwenden: a-z A-Z 0-9"
+    exit 1
+fi
+
 if id $1 &>/dev/null; then
     # echo "Dieser Benutzer existiert bereits."
     quit=1 # exit
