@@ -1,4 +1,6 @@
 <?php
+include "header.php";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header("Content-Type: text/plain");
 
@@ -35,39 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   <main class="mt-10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-4xl font-extrabold text-gray-900">Kostenloser Webserver (Beta Phase)</h2>
+      <h2 class="text-4xl font-extrabold text-gray-900">Willkommen in der Beta Phase</h2>
       <p class="mt-4 text-lg text-gray-600">
-        <p><b><span style="color:red">ACHTUNG</span></b>: Dein Webserver kann <b>in der Beta Phase</b> jederzeit gelöscht werden!</p>
-      </p>
-      <p class="mt-4 text-lg text-gray-600">
-        Features
-        <ul>
-                <li>Subdomain: deinname.zarat.at</li>
-                <li>PHP 8</li>
-                <li>unbegrenzt MySQL Datenbanken</li>
-                <li>FTP Zugriff</li>
-                <li>SSH Root Zugriff</li>
-                <li>LetsEncrypt Zertifikat</li>
-        </ul>
+        <p><b><span style="color:red">ACHTUNG</span></b>: Dein Paket kann <b>in der Beta Phase</b> jederzeit gelöscht werden!</p>
       </p>
     </div>
 
-    <div class="mt-10 max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-      <form id="registerForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Benutzername</label>
-          <input name="username" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="username" type="text" placeholder="deinname">
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">E-Mail</label>
-          <input name="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="email" type="email" placeholder="you@example.com">
-        </div>
-        <div class="flex items-center justify-between">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
-            Kostenlos registrieren
-          </button>
-        </div>
-      </form>
 
 <div id="loading" class="mt-4 p-4 bg-yellow-100 rounded text-sm text-yellow-800 hidden">
   <span id="loading-text">Webserver wird vorbereitet …</span>
@@ -99,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     const responseBox = document.getElementById("response");
 
     const messages = [
-      "Webserver wird vorbereitet …",
+      "Webspace wird vorbereitet …",
       "Container wird gestartet …",
       "Zugangsdaten werden erstellt …",
       "Fast fertig …"
