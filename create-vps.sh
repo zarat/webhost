@@ -12,7 +12,9 @@ TEMPLATE="local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst"
 MEMORY=512                     # MB
 CORES=1
 DISK_SIZE=1                    # GB
-ROOT_PASS="lunikoff"
+ROOT_PASS=$(openssl rand -base64 8)
+
+EMAIL="$2"
 
 # ===== LOGIN (Ticket holen) =====
 echo "[*] Authentifiziere bei Proxmox API..."
@@ -93,3 +95,38 @@ EOF
 systemctl restart ssh
 
 echo "[✓] Container $VMID wurde erstellt und gestartet."
+
+user=$HOSTNAME
+password=$ROOT_PASS
+email=$EMAIL
+
+TO="$email"
+SUBJECT="Dein VPS ist bereit ($user.zarat.at)"
+BODY=$(cat <<EOF
+Hallo $user, dein VPS wurde eingerichtet.
+
+SSH:
+    Host: $user.zarat.at
+    User: $user
+    Password: $password
+
+Hinweis: Da die SSH Verbindung über einen Jump-Host geleitet wird, musst du das Passwort beim Login 2mal eingeben.
+EOF
+)
+echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
+
+TO="manuel.zarat@gmail.com"
+SUBJECT="Ein neuer VPS ($user) wurde eingerichtet"
+BODY=$(cat <<EOF
+Ein kostenloser Webserver wurde eingerichtet.
+
+Email: $email
+
+SSH:
+    Host: $user.zarat.at
+    User: $user
+    Password: $password
+EOF
+)
+
+echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
