@@ -15,7 +15,7 @@ fi
 # ===== KONFIGURATION =====
 PVE_HOST="192.168.0.100"         # IP oder Hostname deines Proxmox-Servers
 PVE_USER="root@pam"             # API-Benutzer (z. B. root@pam oder apiuser@pve)
-PVE_PASS="Lunikoff0310#"        # Passwort oder API-Token
+PVE_PASS="deinPasswort"        # Passwort oder API-Token
 PVE_NODE="pve"                  # Name des Proxmox-Nodes (z. B. pve)
 
 # VMID=150
