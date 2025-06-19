@@ -1,16 +1,21 @@
 #!/bin/bash
 
 if [[ "$1" =~ ^[a-zA-Z0-9]+$ ]]; then
-    echo "" 
+    echo "" > /dev/null 
 else
     echo "Bitte nur folgende Zeichen verwenden: a-z A-Z 0-9"
+    exit 1
+fi
+
+if id $1 &>/dev/null; then
+    echo "Ooops, bitte wähle einen anderen Namen."
     exit 1
 fi
 
 # ===== KONFIGURATION =====
 PVE_HOST="192.168.0.100"         # IP oder Hostname deines Proxmox-Servers
 PVE_USER="root@pam"             # API-Benutzer (z. B. root@pam oder apiuser@pve)
-PVE_PASS="deinPasswort"        # Passwort oder API-Token
+PVE_PASS="Lunikoff0310#"        # Passwort oder API-Token
 PVE_NODE="pve"                  # Name des Proxmox-Nodes (z. B. pve)
 
 # VMID=150
@@ -24,7 +29,7 @@ ROOT_PASS=$(openssl rand -base64 8)
 EMAIL="$2"
 
 # ===== LOGIN (Ticket holen) =====
-echo "[*] Authentifiziere bei Proxmox API..."
+#echo "[*] Authentifiziere bei Proxmox API..."
 AUTH_RESPONSE=$(curl -sk -d "username=$PVE_USER&password=$PVE_PASS" https://$PVE_HOST:8006/api2/json/access/ticket)
 
 TICKET=$(echo "$AUTH_RESPONSE" | jq -r '.data.ticket')
@@ -35,7 +40,7 @@ if [[ -z "$TICKET" || -z "$CSRF" ]]; then
   exit 1
 fi
 
-echo "[*] Suche nach erster freier VMID auf Node $PVE_NODE..."
+#echo "[*] Suche nach erster freier VMID auf Node $PVE_NODE..."
 USED_VMIDS=$(curl -sk -b "PVEAuthCookie=$TICKET" https://$PVE_HOST:8006/api2/json/nodes/$PVE_NODE/lxc | jq '.data[].vmid')
 
 USED_ARRAY=($(echo "$USED_VMIDS"))
@@ -45,7 +50,7 @@ while [[ " ${USED_ARRAY[@]} " =~ " $VMID " ]]; do
   ((VMID++))
 done
 
-echo "[+] Verwende VMID $VMID"
+#echo "[+] Verwende VMID $VMID"
 
 IPCONFIG_INTERFACE="name=eth0"
 IPCONFIG_BRIDGE="bridge=vmbr0"
@@ -53,7 +58,7 @@ IPCONFIG="ip=192.168.0.$VMID/24,gw=192.168.0.1"
 
 
 # ===== LXC erstellen =====
-echo "[*] Erstelle LXC-Container $VMID auf Node $PVE_NODE..."
+#echo "[*] Erstelle LXC-Container $VMID auf Node $PVE_NODE..."
 
 CREATE_RESPONSE=$(curl -sk -X POST https://$PVE_HOST:8006/api2/json/nodes/$PVE_NODE/lxc \
   -H "CSRFPreventionToken: $CSRF" \
@@ -64,13 +69,14 @@ CREATE_RESPONSE=$(curl -sk -X POST https://$PVE_HOST:8006/api2/json/nodes/$PVE_N
   -d memory=$MEMORY \
   -d cores=$CORES \
   -d rootfs="local-lvm:${DISK_SIZE}" \
+  -d password="lunikoff" \
   -d unprivileged=1)
 
-echo "$CREATE_RESPONSE" | jq
+# echo "$CREATE_RESPONSE" | jq
 
 
 # ===== Container starten =====
-echo "[*] Starte Container $VMID..."
+# echo "[*] Starte Container $VMID..."
 answer=$(curl -sk -X POST https://$PVE_HOST:8006/api2/json/nodes/$PVE_NODE/lxc/$VMID/status/start \
   -H "CSRFPreventionToken: $CSRF" \
   -b "PVEAuthCookie=$TICKET" | jq)
@@ -101,7 +107,7 @@ Match User $HOSTNAME
 EOF
 systemctl restart ssh
 
-echo "[✓] Container $VMID wurde erstellt und gestartet."
+# echo "[✓] Container $VMID wurde erstellt und gestartet."
 
 user=$HOSTNAME
 password=$ROOT_PASS
@@ -117,7 +123,7 @@ SSH:
     User: $user
     Password: $password
 
-Hinweis: Da die SSH Verbindung über einen Jump-Host geleitet wird, musst du das Passwort beim Login 2mal eingeben.
+Hinweis: Da die SSH Verbindung über einen Jump-Host geleitet wird, musst du das Passwort beim Login 2mal eingeben. B ei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Spass mit deinem neuen Webserver.
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
@@ -137,3 +143,31 @@ EOF
 )
 
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
+
+echo "Wir haben deine Zugangsdaten an $email gesendet."
+
+
+
+vhost_file="/etc/nginx/sites-available/$user.conf"
+cat > "$vhost_file" <<EOF
+server {
+    listen 80;
+    server_name $user.zarat.at;
+
+    location / {
+        proxy_pass http://192.168.0.$VMID;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-Host \$host;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    }
+}
+EOF
+
+ln -s "$vhost_file" /etc/nginx/sites-enabled/
+
+#echo "[info] Reloading nginx"
+nginx -s reload
+
+certbot --nginx -d $user.zarat.at --non-interactive --agree-tos -m manuel@zarat.at 1> /dev/null 2>/dev/null
