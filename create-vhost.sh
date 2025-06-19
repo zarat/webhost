@@ -6,7 +6,7 @@ email=$2
 quit=0
 
 if [[ "$1" =~ ^[a-zA-Z0-9]+$ ]]; then
-    echo "" 
+    echo ""
 else
     echo "Bitte nur folgende Zeichen verwenden: a-z A-Z 0-9"
     exit 1
@@ -154,6 +154,8 @@ MySQL:
     Host: localhost
     User: root
     Password: $password
+
+Bei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Spass mit deinem neuen Webserver.
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
