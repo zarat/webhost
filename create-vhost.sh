@@ -138,6 +138,7 @@ certbot --nginx -d $user.zarat.at --non-interactive --agree-tos -m manuel@zarat.
 
 echo "Wir haben deine Zugangsdaten an $email gesendet."
 
+# mail an kunde
 TO="$email"
 SUBJECT="Dein Webspace ist bereit ($user.zarat.at)"
 BODY=$(cat <<EOF
@@ -155,11 +156,12 @@ MySQL:
     User: root
     Password: $password
 
-Bei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Spass mit deinem neuen Webserver.
+Bei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Spass mit deinem Webspace.
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
+# mail an mich
 TO="manuel.zarat@gmail.com"
 SUBJECT="Ein Webspace ($user) wurde eingerichtet"
 BODY=$(cat <<EOF
