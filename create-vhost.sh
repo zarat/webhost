@@ -156,7 +156,7 @@ MySQL:
     User: root
     Password: $password
 
-Bei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Spass mit deinem Webspace.
+Bei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Erfolg mit deinem Webspace.
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
