@@ -113,6 +113,7 @@ user=$HOSTNAME
 password=$ROOT_PASS
 email=$EMAIL
 
+# mail an kunde
 TO="$email"
 SUBJECT="Dein VPS ist bereit ($user.zarat.at)"
 BODY=$(cat <<EOF
@@ -123,11 +124,12 @@ SSH:
     User: $user
     Password: $password
 
-Hinweis: Da die SSH Verbindung über einen Jump-Host geleitet wird, musst du das Passwort beim Login 2mal eingeben. B ei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Spass mit deinem neuen Webserver.
+Hinweis: Da die SSH Verbindung über einen Jump-Host geleitet wird, musst du das Passwort beim Login 2mal eingeben. Bei Fragen, Problemen und Beschwerden sende uns bitte eine Mail an support@zarat.at. Viel Erfolg mit deinem Webserver.
 EOF
 )
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
+# mail an mich
 TO="manuel.zarat@gmail.com"
 SUBJECT="Ein VPS ($user) wurde eingerichtet"
 BODY=$(cat <<EOF
@@ -141,11 +143,10 @@ SSH:
     Password: $password
 EOF
 )
-
 echo -e "Subject: $SUBJECT\nFrom: manuel@zarat.at\nTo: $TO\n\n$BODY" | msmtp "$TO" > /dev/null 2>&1
 
-echo "Wir haben deine Zugangsdaten an $email gesendet."
 
+echo "Wir haben deine Zugangsdaten an $email gesendet."
 
 
 vhost_file="/etc/nginx/sites-available/$user.conf"
